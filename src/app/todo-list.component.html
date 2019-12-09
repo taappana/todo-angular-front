@@ -1,0 +1,31 @@
+<div class="todo-content">
+    <h1 class="page-title">Todos!</h1>
+    <div class="todo-create">
+      <form #todoForm="ngForm" (ngSubmit)="createTodo(todoForm)" novalidate>
+        <input type="text" id="title" class="form-control" placeholder="Please type a todo and press enter..." 
+               required
+               name="title" [(ngModel)]="newTodo.title"
+               #title="ngModel"
+               [disabled]="!todos">
+        <div *ngIf="title.errors && title.dirty"
+             class="alert alert-danger">
+            <div [hidden]="!title.errors.required">
+              Title is required.
+            </div>
+        </div>
+      </form>
+    </div>
+    <ul class="todo-list">
+      <li *ngFor="let todo of todos">
+        <div class="todo-row">
+            <span class="todo-title">
+              {{todo.title}}
+            </span>
+        </div>
+      </li>
+    </ul>
+    <div class="no-todos" *ngIf="todos && todos.length === 0">
+        <p>No Todos Found! Start filling up your list by entering your first Todo</p>
+    </div>
+    <div class="spinner" *ngIf="!todos"></div>
+</div>
